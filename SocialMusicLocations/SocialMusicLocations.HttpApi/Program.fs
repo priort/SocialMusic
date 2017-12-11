@@ -86,6 +86,7 @@ module CommandValidation =
         <*> validateLocation unvalidatedCommand.location
         
 open CommandValidation
+open Suave.RequestErrors
         
 type ErrorResponse = {
     errors : string
@@ -102,17 +103,19 @@ let handleCommand (agent:Agent) ctx = async {
     let validationResult = 
         JsonConvert.DeserializeObject<UnvalidatedCommand>(requestJson)
         |> validateCommand
-    let response = 
-        match validationResult with
-        | Success command ->
-            let agentResponse = agent.HandleCommand(command)
-            match agentResponse with
-            | AgentResponse.Success (state, events) ->
-                { state = state; events = events } |> JsonConvert.SerializeObject
-            | AgentResponse.Failure error -> error |> Errors.toString |> JsonConvert.SerializeObject
-        | Error errors -> 
-            { errors = String.Join("; ", errors |> List.toArray) } |> JsonConvert.SerializeObject
-    return! Successful.OK response ctx
+    match validationResult with
+    | Success command ->
+        let agentResponse = agent.HandleCommand(command)
+        match agentResponse with
+        | AgentResponse.Success (state, events) ->
+            let response = { state = state; events = events } |> JsonConvert.SerializeObject
+            return! Successful.OK response ctx
+        | AgentResponse.Failure error -> 
+            let response =  error |> Errors.toString |> JsonConvert.SerializeObject
+            return! RequestErrors.UNPROCESSABLE_ENTITY response ctx
+    | Error errors -> 
+        let response = { errors = String.Join("; ", errors |> List.toArray) } |> JsonConvert.SerializeObject
+        return! RequestErrors.UNPROCESSABLE_ENTITY response ctx
 }
 
 [<EntryPoint>]
