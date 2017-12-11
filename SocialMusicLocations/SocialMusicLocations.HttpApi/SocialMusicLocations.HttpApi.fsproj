@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SocialMusicLocations.Control\SocialMusicLocations.Control.fsproj" />
+    <ProjectReference Include="..\SocialMusicLocations.Core\SocialMusicLocations.Core.fsproj" />
+    <ProjectReference Include="..\SocialMusicLocations.EventStore\SocialMusicLocations.EventStore.fsproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Suave" Version="2.2.1" />
+  </ItemGroup>
+</Project>

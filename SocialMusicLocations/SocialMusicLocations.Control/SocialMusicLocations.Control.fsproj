@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Controller.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SocialMusicLocations.Core\SocialMusicLocations.Core.fsproj" />
+    <ProjectReference Include="..\SocialMusicLocations.EventStore\SocialMusicLocations.EventStore.fsproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.ServiceBus" Version="2.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+</Project>

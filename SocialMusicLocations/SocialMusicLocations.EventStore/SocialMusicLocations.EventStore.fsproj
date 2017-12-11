@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Store.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SocialMusicLocations.Core\SocialMusicLocations.Core.fsproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NEventStore" Version="5.2.0" />
+  </ItemGroup>
+</Project>
