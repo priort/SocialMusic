@@ -94,8 +94,6 @@ let convertToEvent (message:Message) =
          <*> (Location.fromString propagationMessage.musicianLocation)
     | _ -> None 
     
-    // message that we're not interested in or message body invalid.
-         
 type ServiceBusConsumer(connectionString, queueName, projectEvent: Event -> unit) =
 
     let messageReceiver = new MessageReceiver(connectionString, queueName, ReceiveMode.ReceiveAndDelete)
